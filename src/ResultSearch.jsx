@@ -18,9 +18,10 @@ export default function ResultSearch({data, renderView}) {
     return (<h1 key={idx}>{name}</h1>)
   })
 
+  console.log(renderList)
   return (
     <section className="card-list">
-      {renderList}
+      {renderList.length ? renderList : <h1>School not found</h1>}
     </section>
   )
 }
