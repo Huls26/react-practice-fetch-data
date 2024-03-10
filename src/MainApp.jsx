@@ -1,12 +1,5 @@
 import { useState, useEffect } from 'react';
-
-// function ResultSearch() {
-//     return (
-//         <section>
-            
-//         </section>
-//     )
-// }
+import ResultSearch from './ResultSearch';
 
 // when user write an input and click submit/search button
 // then fetch data with the value of input
@@ -30,9 +23,13 @@ export default function Main() {
   }, [])
   
   return (
-      <main>
-          <h2>Search Bar:</h2>
-          <input />
+      <main className='main'>
+        <section className='search-bar'>
+            <h2>Search Bar:</h2>
+            <input />
+            <button>Search</button>
+        </section>
+       <ResultSearch data={universityApi}/>
       </main>
   )
 }
