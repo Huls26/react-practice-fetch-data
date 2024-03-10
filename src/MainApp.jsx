@@ -9,27 +9,48 @@ import ResultSearch from './ResultSearch';
 
 export default function Main() {
   const [universityApi, setUniversityAPi] = useState();
+  const [inputVal, setInputValue] = useState('');
+  const [isCard, setIsCard] = useState(true);
   
-  async function fetchApi() {
-      const res = await fetch('http://universities.hipolabs.com/search?country=United+States&name=a');
-      const data = await res.json();
-      
-      setUniversityAPi(() => data);
+  async function fetchApi(nameValue) {
+    const nameSearch = nameValue;
+    const url = nameSearch ? `http://universities.hipolabs.com/search?country=United+States&name=${nameSearch}` : 'http://universities.hipolabs.com/search?country=United+States';
+    const res = await fetch(url);
+    const data = await res.json();
+    
+    setUniversityAPi(() => data);
   }
   
-  console.log(universityApi)
   useEffect(() => {
       fetchApi()
   }, [])
   
+  function handleOnChange(event) {
+    const target = event.target;
+    const value = target.value;
+
+    setInputValue(() => value);
+  }
+
+  function handleSubmit() {
+    fetchApi(inputVal)
+  }
+  
+  function handleFilterView() {
+    setIsCard(prev => !prev)
+  }
+
   return (
       <main className='main'>
         <section className='search-bar'>
             <h2>Search Bar:</h2>
-            <input />
-            <button>Search</button>
+            <input type='text' name='input-search' onChange={handleOnChange} value={inputVal}/>
+            <button onClick={handleSubmit}>Search</button>
         </section>
-       <ResultSearch data={universityApi}/>
+        <div>
+            <button style={{opacity: isCard ? 1 : .55}} onClick={handleFilterView}>List View</button>
+        </div>
+       {universityApi ? <ResultSearch data={universityApi} renderView={isCard}/> : <h1>...Loading</h1>}
       </main>
   )
 }
