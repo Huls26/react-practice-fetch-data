@@ -1,10 +1,13 @@
-import Main from './MainApp'
-import './App.css'
+// import Main from './MainApp'
+import FormInput from './real-time-input/FormInput';
 
 
 
 export default function App() {
     return (
-        <Main />
+        <>
+            {/* <Main /> */}
+            <FormInput />
+        </>
     );
 }
